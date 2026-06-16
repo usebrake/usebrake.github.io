@@ -1,177 +1,475 @@
-<!doctype html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Brake | Local screen accountability</title>
-  <meta name="description" content="Brake is a private Windows accountability app for explicit screen content. It runs locally and installs with a simple Windows installer.">
-  <link rel="icon" href="assets/brand/favicon.svg">
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0b0e14;
-      --panel: #121720;
-      --panel-2: #171d29;
-      --line: rgba(243, 240, 230, 0.13);
-      --line-strong: rgba(243, 240, 230, 0.22);
-      --text: #f3f0e6;
-      --muted: #aeb5c3;
-      --faint: #7d8492;
-      --gold: #e6cd9b;
-      --gold-bright: #f0dcb0;
-      --teal: #5eead4;
-      --danger: #e2796b;
-      --radius: 8px;
-      --max: 1120px;
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--text); }
-    a { color: inherit; text-decoration: none; }
-    p { color: var(--muted); line-height: 1.65; }
-    header { position: sticky; top: 0; z-index: 10; background: rgba(11, 14, 20, 0.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
-    .nav { max-width: var(--max); margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; }
-    .brand img { width: 34px; height: 34px; }
-    .navlinks { display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: 14px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 18px; border-radius: 6px; border: 1px solid var(--line-strong); font-weight: 650; }
-    .button.primary { background: var(--gold); color: #18120a; border-color: transparent; }
-    .button.primary:hover { background: var(--gold-bright); }
-    .button.secondary:hover { background: var(--panel-2); }
-    .hero { max-width: var(--max); margin: 0 auto; padding: 74px 24px 56px; display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(340px, 0.98fr); gap: 48px; align-items: center; }
-    .eyebrow { color: var(--gold); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-    h1 { margin: 14px 0 0; font-size: clamp(42px, 7vw, 76px); line-height: 0.98; letter-spacing: 0; }
-    h2 { margin: 0; font-size: clamp(28px, 4vw, 44px); letter-spacing: 0; }
-    h3 { margin: 0; font-size: 18px; }
-    .hero-copy { max-width: 650px; font-size: 18px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .screen { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--panel); box-shadow: 0 22px 70px rgba(0,0,0,0.38); }
-    .screen img { width: 100%; display: block; }
-    section { max-width: var(--max); margin: 0 auto; padding: 70px 24px; }
-    .section-head { max-width: 660px; margin-bottom: 28px; }
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); padding: 22px; }
-    .card strong { display: block; margin-bottom: 8px; }
-    .step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; }
-    .num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: rgba(230, 205, 155, 0.13); color: var(--gold); border: 1px solid rgba(230, 205, 155, 0.28); font-weight: 700; }
-    .band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #090c12; }
-    .split { max-width: var(--max); margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 32px; align-items: center; }
-    .fine { font-size: 14px; color: var(--faint); }
-    footer { border-top: 1px solid var(--line); padding: 28px 24px; color: var(--faint); }
-    footer div { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
-    footer nav { display: flex; gap: 16px; }
-    @media (max-width: 820px) {
-      .hero, .split { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
-      .navlinks a:not(.button) { display: none; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-  <header>
-    <div class="nav">
-      <a class="brand" href="index.html">
-        <img src="assets/brand/brake-ring-gold.svg" alt="">
-        <span>Brake</span>
+<x-dc>
+<helmet>
+<link rel="icon" href="assets/brand/favicon.svg">
+<link rel="stylesheet" href="_ds/brake-design-system-5188ea3f-ccbf-47ca-82ed-706f1ef4f1dd/colors_and_type.css">
+<script src="_ds/brake-design-system-5188ea3f-ccbf-47ca-82ed-706f1ef4f1dd/_ds_bundle.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #0b0e14; }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+  ::selection { background: rgba(230,205,155,0.26); color: #f3f0e6; }
+  @media (max-width: 820px) {
+    [data-nav-links] { display: none !important; }
+  }
+  @media (max-width: 680px) {
+    [data-hide-sm] { display: none !important; }
+  }
+  /* Motion & micro-interactions (enhancement only; base layout stays inline) */
+  [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.6s cubic-bezier(0.2,0.65,0.2,1), transform 0.6s cubic-bezier(0.2,0.65,0.2,1); }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+  @keyframes brake-scan { 0% { top: -6%; opacity: 0; } 12% { opacity: 0.5; } 88% { opacity: 0.5; } 100% { top: 106%; opacity: 0; } }
+  @keyframes brake-glow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  @keyframes brake-dot { 0% { box-shadow: 0 0 0 0 rgba(94,234,212,0.5); } 70%, 100% { box-shadow: 0 0 0 6px rgba(94,234,212,0); } }
+  [data-scan] { position: absolute; left: 0; right: 0; height: 2px; pointer-events: none; animation: brake-scan 5s cubic-bezier(0.4,0,0.6,1) infinite; }
+  [data-glow] { animation: brake-glow 7s ease-in-out infinite; }
+  [data-dot] { animation: brake-dot 2.6s ease-out infinite; }
+  [data-dl] svg { transition: transform 0.22s var(--ease-out); }
+  [data-dl]:hover svg { transform: translateY(2px); }
+  [data-arrow] svg:last-child { transition: transform 0.22s var(--ease-out); }
+  [data-arrow]:hover svg:last-child { transform: translateX(4px); }
+  /* Light theme scope â€” warm paper. Only token values change; every element keeps its inline styles. */
+  .light {
+    --base: #f4f0e6;
+    --surface-1: #fbf9f3;
+    --surface-2: #ece7da;
+    --surface-3: #e2dccc;
+    --surface-sink: #e7e2d5;
+    --border: rgba(44, 36, 18, 0.12);
+    --border-strong: rgba(44, 36, 18, 0.20);
+    --border-faint: rgba(44, 36, 18, 0.07);
+    --fg-1: #1c1a14;
+    --fg-2: #4a4636;
+    --fg-3: #6c6655;
+    --fg-4: #9c947f;
+    --on-accent: #1a140a;
+    --gold: #b08a36;
+    --gold-bright: #c39a3d;
+    --gold-dim: #8f6f2a;
+    --gold-soft: rgba(176, 138, 54, 0.13);
+    --gold-line: rgba(176, 138, 54, 0.30);
+    --teal: #128a72;
+    --teal-deep: #0e6f5c;
+    --teal-soft: rgba(18, 138, 114, 0.12);
+    --teal-line: rgba(18, 138, 114, 0.28);
+    --amber: #b9742a;
+    --amber-soft: rgba(185, 116, 42, 0.13);
+    --amber-line: rgba(185, 116, 42, 0.30);
+    --coral: #c0503f;
+    --coral-soft: rgba(192, 80, 63, 0.12);
+    --coral-line: rgba(192, 80, 63, 0.30);
+    --inner-top: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    --sh-1: 0 1px 2px rgba(44, 36, 18, 0.07);
+    --sh-2: 0 6px 18px rgba(44, 36, 18, 0.10);
+    --sh-3: 0 14px 36px rgba(44, 36, 18, 0.13);
+    --ring: 0 0 0 3px var(--gold-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; transition-delay: 0ms !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; }
+    [data-scan] { display: none !important; }
+  }
+</style>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function check(){
+    var vh = window.innerHeight || document.documentElement.clientHeight || 800;
+    var list = document.querySelectorAll('[data-reveal]:not(.is-in)');
+    for (var i = 0; i < list.length; i++){
+      var el = list[i];
+      if (reduce){ el.classList.add('is-in'); continue; }
+      var r = el.getBoundingClientRect();
+      if (r.top < vh * 0.94 && r.bottom > -40) el.classList.add('is-in');
+    }
+  }
+  function bind(){
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    window.addEventListener('load', check);
+    [120, 360, 700, 1200].forEach(function(t){ setTimeout(check, t); });
+    if (typeof MutationObserver !== 'undefined'){
+      var mo = new MutationObserver(check);
+      mo.observe(document.documentElement, { childList: true, subtree: true });
+      window.addEventListener('load', function(){ setTimeout(function(){ mo.disconnect(); }, 1400); });
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  else bind();
+})();
+</script>
+</helmet>
+
+<div data-screen-label="Brake landing page" style="background: var(--base); color: var(--fg-1); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; line-height: 1.6; overflow-x: hidden;">
+
+  <!-- ============ HEADER ============ -->
+  <header style="position: sticky; top: 0; z-index: 50; background: rgba(11,14,20,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+      <a href="#top" style="display: flex; align-items: center; gap: 11px;">
+        <img src="assets/brand/brake-mark.svg" alt="Brake" width="34" height="34" style="width: 34px; height: 34px;">
+        <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-1);">Brake</span>
+        
       </a>
-      <nav class="navlinks" aria-label="Main navigation">
-        <a href="#how">How it works</a>
-        <a href="install-guide.html">Install guide</a>
-        <a href="#privacy">Privacy</a>
-        <a class="button primary" href="https://github.com/usebrake/Brake/releases/latest/download/BrakeSetup.exe">Download</a>
+      <nav data-nav-links="" style="display: flex; align-items: center; gap: 30px;">
+        <a href="#how" style="font-size: 14px; color: var(--fg-3); font-weight: 500;" style-hover="color: var(--fg-1);">How it works</a>
+        <a href="install-guide.dc.html" style="font-size: 14px; color: var(--fg-3); font-weight: 500;" style-hover="color: var(--fg-1);">Install guide</a>
+        <a href="#beta" style="font-size: 14px; color: var(--fg-3); font-weight: 500;" style-hover="color: var(--fg-1);">Beta feedback</a>
       </nav>
+      <a data-dl="" href="https://github.com/usebrake/brake" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 8px; background: var(--gold); color: var(--on-accent); font-size: 14px; font-weight: 560; padding: 9px 16px; border-radius: var(--r-sm); box-shadow: var(--inner-top); transition: background var(--dur-fast) var(--ease-out);" style-hover="background: var(--gold-bright);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m6 11 6 6 6-6"></path><path d="M5 21h14"></path></svg>
+        Download beta
+      </a>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div>
-        <div class="eyebrow">Windows beta</div>
-        <h1>Brake</h1>
-        <p class="hero-copy">Local screen accountability for explicit content. Brake checks your screen on your computer and steps in with a lockout when clear explicit content appears.</p>
-        <div class="actions">
-          <a class="button primary" href="https://github.com/usebrake/Brake/releases/latest/download/BrakeSetup.exe">Download Brake for Windows</a>
-          <a class="button secondary" href="https://github.com/usebrake/Brake">View source on GitHub</a>
+  <!-- ============ HERO ============ -->
+  <section id="top" style="position: relative; max-width: 1140px; margin: 0 auto; padding: clamp(32px, 5vw, 56px) 24px; min-height: calc(100vh - 70px); display: flex; flex-direction: column; justify-content: center;">
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(36px, 5vw, 64px); align-items: center; width: 100%;">
+      <div style="flex: 1 1 540px; min-width: 300px;">
+        
+        <h1 data-reveal="" style="transition-delay: 70ms; margin: 16px 0 0; font-size: clamp(24px, 2.95vw, 39px); line-height: 1.2; letter-spacing: -0.016em; font-weight: 600; color: var(--fg-1);"><span style="color: var(--fg-3);">Stop blocking everything.</span><br>Start using your computer again.</h1>
+        <p data-reveal="" style="transition-delay: 140ms; margin: 20px 0 0; max-width: 30em; font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; color: var(--fg-2);">A porn blocker for Windows that watches your screen, not your whole internet.</p>
+        <div data-reveal="" style="transition-delay: 200ms; margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 12px;">
+          <a data-dl="" href="https://github.com/usebrake/brake" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: var(--gold); color: var(--on-accent); font-size: 15px; font-weight: 560; padding: 13px 22px; border-radius: var(--r-sm); box-shadow: var(--inner-top); transition: background var(--dur-fast) var(--ease-out);" style-hover="background: var(--gold-bright);">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m6 11 6 6 6-6"></path><path d="M5 21h14"></path></svg>
+            Download free beta
+          </a>
+          
         </div>
-        <p class="fine">Free, local, source-available. No account, no sync, no screenshots uploaded.</p>
+        
       </div>
-      <div class="screen">
-        <img src="assets/screens/overview.png" alt="Brake overview screen showing protection controls">
-      </div>
-    </section>
-
-    <section id="how">
-      <div class="section-head">
-        <h2>What Brake does</h2>
-        <p>Brake is not a website blocker. It watches locally and creates friction when explicit content appears on screen.</p>
-      </div>
-      <div class="grid">
-        <div class="card">
-          <strong>Local detection</strong>
-          <p>Screen checks run on your Windows PC. Screenshots are not uploaded, saved, or sent to a server.</p>
-        </div>
-        <div class="card">
-          <strong>Full lockouts</strong>
-          <p>Clear explicit content triggers a full lockout. Repeated lockouts within 24 hours can make the next one longer.</p>
-        </div>
-        <div class="card">
-          <strong>Commitment mode</strong>
-          <p>Optional commitments stop your password from turning protection off before the commitment ends.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="band" id="privacy">
-      <div class="split">
-        <div>
-          <h2>Private by design</h2>
-          <p>Brake works entirely on your computer. There is no account, no cloud dashboard, no telemetry, and no screenshot upload pipeline.</p>
-        </div>
-        <div class="grid" style="grid-template-columns: 1fr 1fr;">
-          <div class="card"><strong>No account</strong><p>Install and use Brake without sign-in.</p></div>
-          <div class="card"><strong>No cloud sync</strong><p>Your local settings stay on your PC.</p></div>
-          <div class="card"><strong>Public source</strong><p>Read the code before installing.</p></div>
-          <div class="card"><strong>Local logs</strong><p>Detection logs store labels and confidence values, not screenshots.</p></div>
+      <div data-reveal="" style="transition-delay: 160ms; flex: 1 1 380px; min-width: 300px; position: relative;">
+        <div style="position: absolute; inset: -8% -4% -10% -4%; background: radial-gradient(60% 55% at 60% 20%, rgba(230,205,155,0.14), rgba(230,205,155,0) 70%); filter: blur(6px); pointer-events: none;"></div>
+        <div style="position: relative; border: 1px solid var(--border-strong); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-3), var(--inner-top); background: var(--surface-sink);">
+          <img src="./brakeoverview-mqfn4y6g.png" alt="Brake overview screen showing protection status and session controls" style="width: 100%; height: auto; display: block;">
         </div>
       </div>
     </div>
+  </section>
 
-    <section id="setup">
-      <div class="section-head">
-        <h2>Set up once, then leave it running</h2>
-        <p>Install the Windows beta, save your recovery code, turn on protection, and optionally lock in a commitment.</p>
-      </div>
-      <div class="grid">
-        <div class="card step"><div class="num">1</div><div><strong>Install Brake</strong><p>Download BrakeSetup.exe, run it, and approve the Windows admin prompt.</p></div></div>
-        <div class="card step"><div class="num">2</div><div><strong>Save recovery code</strong><p>Keep it somewhere safe, or intentionally make it harder to reach for stronger commitment.</p></div></div>
-        <div class="card step"><div class="num">3</div><div><strong>Turn on protection</strong><p>Set your password and choose how long a lockout should last.</p></div></div>
-      </div>
-      <div class="actions">
-        <a class="button secondary" href="install-guide.html">Read the install guide</a>
-      </div>
-    </section>
+  <div class="light" style="background: var(--base);">
 
-    <section id="beta">
-      <div class="section-head">
-        <h2>Help shape the beta</h2>
-        <p>If Brake misses something, reacts too aggressively, or the install flow feels confusing, report it on GitHub.</p>
-      </div>
-      <div class="actions">
-        <a class="button primary" href="https://github.com/usebrake/Brake/issues">Report an issue</a>
-        <a class="button secondary" href="mailto:hello.usebrake@gmail.com">Email feedback</a>
-      </div>
-    </section>
-  </main>
+  <!-- ============ PROBLEM ============ -->
+  <section style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 116px) 24px;">
+    <div style="max-width: 760px; margin: 0 auto; text-align: center;">
+      
+      <h2 data-reveal="" style="transition-delay: 70ms; margin: 16px 0 0; font-size: clamp(30px, 4.2vw, 47px); line-height: 1.06; letter-spacing: -0.02em; font-weight: 680; color: var(--fg-1);">Blocking everything is not a life.</h2>
+      <p data-reveal="" style="transition-delay: 130ms; margin: 22px auto 0; max-width: 30em; font-size: clamp(16px, 1.8vw, 19px); line-height: 1.55; color: var(--fg-2);">You keep adding one more site, one more app, one more rule, and the computer slowly turns into a cage. Explicit content still slips through the cracks. <span style="color: var(--fg-1); font-weight: 540;">Brake is built for those cracks.</span></p>
+    </div>
 
-  <footer>
-    <div>
-      <span>Brake. Local screen accountability.</span>
-      <nav aria-label="Footer">
-        <a href="https://github.com/usebrake/Brake">GitHub</a>
-        <a href="https://github.com/usebrake/Brake/issues">Issues</a>
-        <a href="install-guide.html">Install</a>
-      </nav>
+    <div style="margin: clamp(46px, 6vw, 70px) 0 0;">
+      <div data-reveal="" style="display: flex; align-items: center; gap: 16px;">
+        <span style="height: 1px; flex: 1 1 auto; background: var(--border);"></span>
+        <span style="display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-4); white-space: nowrap;"><span aria-hidden="true" style="display:inline-flex; gap:3px;"><span style="width:2.5px;height:11px;border-radius:1.5px;background:var(--coral);display:block;"></span><span style="width:2.5px;height:11px;border-radius:1.5px;background:var(--coral);display:block;"></span></span>Where it still gets through</span>
+        <span style="height: 1px; flex: 1 1 auto; background: var(--border);"></span>
+      </div>
+      <div data-reveal="" style="margin: 28px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px;">
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">01</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">Search results</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">Image grids and previews can expose content before a blocker catches the site.</p>
+        </div>
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">02</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">Social feeds</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">Reddit, X, forums, and feeds can surface explicit content through posts, thumbnails, and links.</p>
+        </div>
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">03</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">In-app browsers</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">Apps can open web views that normal browser rules do not always cover cleanly.</p>
+        </div>
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">04</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">Game and app overlays</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">Steam overlays and embedded browsers can create unexpected access points.</p>
+        </div>
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">05</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">Random links</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">One click from a safe page can land somewhere risky.</p>
+        </div>
+
+        <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 22px 24px; box-shadow: var(--inner-top); transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);" style-hover="border-color: var(--border-strong); background: var(--surface-2); transform: translateY(-3px); box-shadow: var(--sh-2);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 560; color: var(--coral); font-feature-settings: 'tnum'; letter-spacing: 0.02em;">06</span>
+            <span style="flex: 1 1 auto; height: 1px; background: var(--border-faint);"></span>
+          </div>
+          <h3 style="margin: 15px 0 0; font-size: 16px; font-weight: 560; letter-spacing: -0.006em; color: var(--fg-1);">Sites you forgot</h3>
+          <p style="margin: 7px 0 0; font-size: 14px; line-height: 1.6; color: var(--fg-3); text-wrap: pretty;">A blacklist is only as complete as the last rule you remembered to add.</p>
+        </div>
+
+      </div>
+    </div>
+
+    
+  </section>
+
+  <!-- ============ SOLUTION / HOW IT WORKS ============ -->
+  <section id="how" style="background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 116px) 24px;">
+      <div style="display: flex; flex-wrap: wrap-reverse; gap: clamp(36px, 5vw, 64px); align-items: center;">
+        <div data-reveal="" style="flex: 1 1 440px; min-width: 300px; position: relative;">
+          <div style="position: relative; border: 1px solid var(--border-strong); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sh-3), var(--inner-top); background: var(--surface-sink);">
+            <img src="./lockoutscreen-mqfndghz.png" alt="Brake lockout screen during a protection timer" style="width: 100%; height: auto; display: block;">
+          </div>
+        </div>
+        <div data-reveal="" style="transition-delay: 90ms; flex: 1 1 380px; min-width: 300px;">
+          
+          <h2 style="margin: 14px 0 0; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.12; letter-spacing: -0.018em; font-weight: 600; color: var(--fg-1);">Brake watches what actually appears on screen.</h2>
+          <p style="margin: 20px 0 0; font-size: 17px; line-height: 1.6; color: var(--fg-2);">No list to maintain. Brake watches what is on your screen and reacts the moment explicit content appears.</p>
+          <div style="margin: 24px 0 0; display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 13px; align-items: flex-start;">
+              <span style="flex: none; width: 34px; height: 34px; border-radius: var(--r-sm); display: grid; place-items: center; background: var(--gold-soft); color: var(--gold); border: 1px solid var(--gold-line);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path><circle cx="12" cy="12" r="1"></circle><path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0"></path></svg></span>
+              <div><div style="font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px;">Detection</div><div style="font-size: 15px; font-weight: 560; color: var(--fg-1);">On-device AI detection</div><div style="font-size: 14.5px; color: var(--fg-3); margin-top: 2px;">A local model reads your screen in near real time. Screenshots never leave the machine.</div></div>
+            </div>
+            <div style="display: flex; gap: 13px; align-items: flex-start;">
+              <span style="flex: none; width: 34px; height: 34px; border-radius: var(--r-sm); display: grid; place-items: center; background: var(--amber-soft); color: var(--amber); border: 1px solid var(--amber-line);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v6l4 2"></path><path d="M20 12v5"></path><path d="M20 21h.01"></path><path d="M21.25 8.2A10 10 0 1 0 16 21.16"></path></svg></span>
+              <div><div style="font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px;">Response</div><div style="font-size: 15px; font-weight: 560; color: var(--fg-1);">A lockout with real weight</div><div style="font-size: 14.5px; color: var(--fg-3); margin-top: 2px;">Explicit content locks the computer for a timer you set, and can escalate to a shutdown.</div></div>
+            </div>
+            <div style="display: flex; gap: 13px; align-items: flex-start;">
+              <span style="flex: none; width: 34px; height: 34px; border-radius: var(--r-sm); display: grid; place-items: center; background: var(--teal-soft); color: var(--teal); border: 1px solid var(--teal-line);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path></svg></span>
+              <div><div style="font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 5px;">Performance</div><div style="font-size: 15px; font-weight: 560; color: var(--fg-1);">Light on your computer</div><div style="font-size: 14.5px; color: var(--fg-3); margin-top: 2px;">Tuned to be very&nbsp;<span style="color: var(--fg-3); font-family: var(--font-sans);">light on the</span><span style="color: var(--fg-3); font-family: var(--font-sans);">&nbsp;CPU, so your machine keeps feeling normal while it runs.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRIVACY ============ -->
+  <section id="privacy" style="background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 116px) 24px;">
+      <div data-reveal="" style="max-width: 720px; margin: 0 auto; text-align: center;">
+        <div style="display: inline-flex; align-items: center; font-size: 11.5px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--teal);"><span aria-hidden="true" style="display:inline-flex; gap:3px; margin-right:10px;"><span style="width:3px;height:12px;border-radius:1.5px;background:var(--teal);display:block;"></span><span style="width:3px;height:12px;border-radius:1.5px;background:var(--teal);display:block;"></span></span>Privacy</div>
+        <h2 style="margin: 16px 0 0; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.12; letter-spacing: -0.018em; font-weight: 600; color: var(--fg-1);">It works entirely on your computer.</h2>
+        <p style="margin: 18px auto 0; max-width: 34em; font-size: 17px; line-height: 1.6; color: var(--fg-2)">Detection runs as a local model. Nothing you do is uploaded, recorded, or sent anywhere. No account, no sync, no server.<br><br>If you're worried about malware, read every line of code on GitHub before installing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GETTING STARTED ============ -->
+  <section id="setup" style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 116px) 24px;">
+    <div data-reveal="" style="max-width: 640px;">
+      
+      <h2 style="margin: 14px 0 0; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.12; letter-spacing: -0.018em; font-weight: 600; color: var(--fg-1);">Set up once, then forget it's there.</h2>
+      <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.65; color: var(--fg-2);">Four steps from install to running. The last one is optional.</p>
+      <div style="margin: 24px 0 0;">
+        <a data-arrow="" href="install-guide.dc.html" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: transparent; color: var(--fg-1); font-size: 15px; font-weight: 540; padding: 12px 20px; border-radius: var(--r-sm); border: 1px solid var(--border-strong); transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);" style-hover="background: var(--surface-2); border-color: var(--fg-4);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+          Read the full install guide
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </a>
+      </div>
+    </div>
+    <div data-reveal="" style="margin: 40px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--inner-top); transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);" style-hover="transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--border-strong);">
+        <div style="display: flex; align-items: center; gap: 11px;"><span style="font-family: var(--font-mono); font-size: 12px; color: var(--gold); border: 1px solid var(--gold-line); background: var(--gold-soft); width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-feature-settings: 'tnum';">1</span><span style="color: var(--fg-3);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m6 11 6 6 6-6"></path><path d="M5 21h14"></path></svg></span></div>
+        <h3 style="margin: 16px 0 0; font-size: 16px; font-weight: 560; color: var(--fg-1);">Install the Windows beta</h3>
+        <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-3);">Download the installer from GitHub and run it. No account, no sign-in.</p>
+      </div>
+      <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--inner-top); transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);" style-hover="transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--border-strong);">
+        <div style="display: flex; align-items: center; gap: 11px;"><span style="font-family: var(--font-mono); font-size: 12px; color: var(--gold); border: 1px solid var(--gold-line); background: var(--gold-soft); width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-feature-settings: 'tnum';">2</span><span style="color: var(--fg-3);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></span></div>
+        <h3 style="margin: 16px 0 0; font-size: 16px; font-weight: 560; color: var(--fg-1);">Save your recovery code</h3>
+        <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-3);">Keep it somewhere safe, or skip saving it on purpose if you want a stronger commitment.</p>
+      </div>
+      
+      <div style="background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--inner-top); transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);" style-hover="transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--border-strong);">
+        <div style="display: flex; align-items: center; gap: 11px;"><span style="font-family: var(--font-mono); font-size: 12px; color: var(--amber); border: 1px solid var(--amber-line); background: var(--amber-soft); width: 26px; height: 26px; border-radius: 999px; display: grid; place-items: center; font-feature-settings: 'tnum';">3</span><span style="color: var(--fg-3);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span></div>
+        <h3 style="margin: 16px 0 0; font-size: 16px; font-weight: 560; color: var(--fg-1);">Lock in a commitment</h3>
+        <p style="margin: 8px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-3);">Optional. Stop the password from turning protection off before the commitment ends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section style="background: var(--surface-1); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    
+  </section>
+
+  <!-- ============ BETA FEEDBACK ============ -->
+  <section id="beta" style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 116px) 24px;">
+    <div data-reveal="" style="background: var(--surface-1); border: 1px solid var(--amber-line); border-radius: var(--r-lg); padding: clamp(28px, 4vw, 52px); box-shadow: var(--inner-top); position: relative; overflow: hidden;">
+      <div style="max-width: 660px;">
+        <div style="display: inline-flex; white-space: nowrap; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--amber); background: var(--amber-soft); border: 1px solid var(--amber-line); padding: 4px 10px; border-radius: var(--r-pill);">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>
+          Beta
+        </div>
+        <h2 style="margin: 16px 0 0; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.14; letter-spacing: -0.018em; font-weight: 600; color: var(--fg-1);">Help shape the beta.</h2>
+        <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.65; color: var(--fg-2); max-width: 46em;">Brake is early. If something breaks, misses, or feels too aggressive, tell us.</p>
+        <div style="margin: 26px 0 0; display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; font-size: 12.5px; font-weight: 540; color: var(--fg-3); margin-bottom: 7px;">Your feedback</label>
+            <textarea value="{{ message }}" onInput="{{ onMessage }}" rows="4" placeholder="What happened? What were you doing when it went wrong?" style="width: 100%; resize: vertical; min-height: 104px; font-family: var(--font-sans); font-size: 15px; line-height: 1.55; color: var(--fg-1); background: var(--base); border: 1px solid var(--border-strong); border-radius: var(--r-sm); padding: 12px 14px; outline: none; box-shadow: var(--inner-top);" style-focus="border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft);"></textarea>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
+            <div style="flex: 1 1 280px; min-width: 220px;">
+              <label style="display: block; font-size: 12.5px; font-weight: 540; color: var(--fg-3); margin-bottom: 7px;">Email for a reply <span style="color: var(--fg-4); font-weight: 440;">(optional)</span></label>
+              <input type="email" value="{{ fromEmail }}" onInput="{{ onEmail }}" placeholder="you@example.com" style="width: 100%; font-family: var(--font-sans); font-size: 15px; color: var(--fg-1); background: var(--base); border: 1px solid var(--border-strong); border-radius: var(--r-sm); padding: 11px 14px; outline: none; box-shadow: var(--inner-top);" style-focus="border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft);">
+            </div>
+            <button onClick="{{ send }}" disabled="{{ sendDisabled }}" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: var(--gold); color: #ffffff; font-size: 15px; font-weight: 560; padding: 12px 22px; border: none; border-radius: var(--r-sm); box-shadow: var(--inner-top); cursor: pointer; opacity: {{ sendButtonOpacity }}; transition: background var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out)" style-hover="background: var(--gold-bright);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg>
+              Send feedback
+            </button>
+          </div>
+          <div style="min-height: 18px;">
+            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+              <div style="display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--teal);">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                Opening your email app with this filled in. Just hit send.
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="margin: 18px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-3);">
+          <span>Prefer GitHub?</span>
+          <a href="https://github.com/usebrake/brake/issues" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 7px; color: var(--gold); font-weight: 540;" style-hover="text-decoration: underline;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.6 8.21 11.16.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.72-4.04-1.59-4.04-1.59-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.22 1.84 1.22 1.07 1.82 2.81 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.32-5.47-5.86 0-1.3.47-2.36 1.24-3.19-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.22a11.6 11.6 0 0 1 6 0c2.29-1.54 3.3-1.22 3.3-1.22.66 1.64.24 2.86.12 3.16.77.83 1.24 1.89 1.24 3.19 0 4.55-2.81 5.56-5.49 5.85.43.36.81 1.08.81 2.18 0 1.58-.01 2.85-.01 3.24 0 .32.22.69.83.57A12.02 12.02 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z"></path></svg>
+            Report an issue on GitHub
+          </a>
+        </div>
+        <div style="margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-3);">
+          <span style="color: var(--fg-3); flex: none;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
+          <span>Or email directly:</span>
+          <a href="{{ emailHref }}" style="color: var(--gold); font-weight: 540;" style-hover="text-decoration: underline;">{{ email }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <!-- ============ LIMITATIONS ============ -->
+  
+
+  <!-- ============ FINAL CTA ============ -->
+  <section style="background: var(--surface-1); border-top: 1px solid var(--border);">
+    <div data-reveal="" style="max-width: 1140px; margin: 0 auto; padding: clamp(64px, 9vw, 120px) 24px; text-align: center;">
+      <img src="assets/brand/brake-mark.svg" alt="" width="52" height="52" style="width: 52px; height: 52px; margin: 0 auto;">
+      <h2 style="margin: 22px 0 0; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 680; color: var(--fg-1);">Try Brake for Windows.</h2>
+      <p style="margin: 18px auto 0; max-width: 34em; font-size: 17px; line-height: 1.65; color: var(--fg-2);">Free, local, and source-available. Download the beta and see how it runs on your own machine.</p>
+      <div style="margin: 32px 0 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+        <a data-dl="" href="https://github.com/usebrake/brake" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: var(--gold); color: var(--on-accent); font-size: 15px; font-weight: 560; padding: 14px 24px; border-radius: var(--r-sm); box-shadow: var(--inner-top); transition: background var(--dur-fast) var(--ease-out);" style-hover="background: var(--gold-bright);">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m6 11 6 6 6-6"></path><path d="M5 21h14"></path></svg>
+          Download free beta
+        </a>
+        <a href="https://github.com/usebrake/brake" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: transparent; color: var(--fg-1); font-size: 15px; font-weight: 540; padding: 14px 22px; border-radius: var(--r-sm); border: 1px solid var(--border-strong); transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);" style-hover="background: var(--surface-2); border-color: var(--fg-4);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.6 8.21 11.16.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.72-4.04-1.59-4.04-1.59-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.22 1.84 1.22 1.07 1.82 2.81 1.3 3.49.99.11-.77.42-1.3.76-1.6-2.67-.3-5.47-1.32-5.47-5.86 0-1.3.47-2.36 1.24-3.19-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.22a11.6 11.6 0 0 1 6 0c2.29-1.54 3.3-1.22 3.3-1.22.66 1.64.24 2.86.12 3.16.77.83 1.24 1.89 1.24 3.19 0 4.55-2.81 5.56-5.49 5.85.43.36.81 1.08.81 2.18 0 1.58-.01 2.85-.01 3.24 0 .32.22.69.83.57A12.02 12.02 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z"></path></svg>
+          View source on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background: var(--base); border-top: 1px solid var(--border);">
+    <div style="max-width: 1140px; margin: 0 auto; padding: 48px 24px 40px; display: flex; flex-wrap: wrap; gap: 36px; justify-content: space-between;">
+      <div style="flex: 1 1 300px; min-width: 240px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/brand/brake-mark.svg" alt="Brake" width="30" height="30" style="width: 30px; height: 30px;">
+          <span style="font-size: 17px; font-weight: 600; color: var(--fg-1);">Brake</span>
+        </div>
+        <p style="margin: 14px 0 0; max-width: 30em; font-size: 13.5px; line-height: 1.6; color: var(--fg-3);">A local accountability app for Windows. Source-available beta. A quiet pause between impulse and action.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 48px;">
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <div style="font-size: 11px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-4);">Project</div>
+          <a href="https://github.com/usebrake/brake" style="font-size: 14px; color: var(--fg-3);">GitHub</a>
+          <a href="https://github.com/usebrake/brake" style="font-size: 14px; color: var(--fg-3);">Roadmap</a>
+          <a href="https://github.com/usebrake/brake" style="font-size: 14px; color: var(--fg-3);">Issues</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <div style="font-size: 11px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-4);">Trust</div>
+          <a href="#privacy" style="font-size: 14px; color: var(--fg-3);">Privacy</a>
+          <a href="https://github.com/usebrake/brake" style="font-size: 14px; color: var(--fg-3);">Security</a>
+          <a href="https://github.com/usebrake/brake" style="font-size: 14px; color: var(--fg-3);">License</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid var(--border-faint);">
+      <div style="max-width: 1140px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center;">
+        <span style="font-size: 12.5px; color: var(--fg-4);">Â© 2026 Brake. Built in public.</span>
+        <span style="font-size: 12.5px; color: var(--fg-4);">Windows Â· Local only Â· No telemetry</span>
+      </div>
     </div>
   </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { message: "", fromEmail: "", sent: false };
+
+  renderVals() {
+    const at = String.fromCharCode(64);
+    const email = "hello.usebrake" + at + "gmail.com";
+    const emailHref = "mailto:" + email + "?subject=Brake" + String.fromCharCode(37) + "20feedback";
+    const message = this.state.message;
+    const fromEmail = this.state.fromEmail;
+    const canSend = message.trim().length > 0;
+
+    const onMessage = (e) => this.setState({ message: e.target.value, sent: false });
+    const onEmail = (e) => this.setState({ fromEmail: e.target.value, sent: false });
+
+    const send = () => {
+      if (!message.trim()) return;
+      let body = message.trim();
+      if (fromEmail.trim()) {
+        body += "\n\nReply to: " + fromEmail.trim();
+      }
+      const url = "mailto:" + email
+        + "?subject=" + encodeURIComponent("Brake feedback")
+        + "&body=" + encodeURIComponent(body);
+      window.location.href = url;
+      this.setState({ sent: true });
+    };
+
+    return {
+      message,
+      fromEmail,
+      canSend,
+      sendDisabled: !canSend,
+      sendButtonOpacity: canSend ? 1 : 0.5,
+      email,
+      emailHref,
+      sent: this.state.sent,
+      onMessage,
+      onEmail,
+      send,
+    };
+  }
+}
+</script>
 </body>
 </html>
