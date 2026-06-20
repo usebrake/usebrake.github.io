@@ -27,16 +27,16 @@
 
   <!-- ============ HEADER ============ -->
   <header style="position: sticky; top: 0; z-index: 50; background: rgba(11,14,20,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);">
-    <div style="max-width: 1060px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
-      <a href="index.html" style="display: flex; align-items: center; gap: 11px;">
+    <div style="max-width: 1140px; margin: 0 auto; padding: 14px 24px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px;">
+      <a href="index.html" style="justify-self: start; display: flex; align-items: center; gap: 11px;">
         <img src="assets/brand/brake-mark.svg" alt="Brake" width="34" height="34" style="width: 34px; height: 34px;">
         <span style="font-size: 19px; font-weight: 600; letter-spacing: -0.01em; color: var(--fg-1);">Brake</span>
       </a>
-      <nav data-nav-links="" style="display: flex; align-items: center; gap: 30px;">
-        <a href="index.html#how" style="font-size: 14px; color: var(--fg-3); font-weight: 500;" style-hover="color: var(--fg-1);">How it works</a>
+      <nav data-nav-links="" style="justify-self: center; display: flex; align-items: center; gap: 30px;">
+        <a href="index.html" style="font-size: 14px; color: var(--fg-3); font-weight: 500;" style-hover="color: var(--fg-1);">Home</a>
         <a href="install-guide.dc.html" style="font-size: 14px; color: var(--fg-1); font-weight: 560;">Install guide</a>
       </nav>
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="justify-self: end; display: flex; align-items: center; gap: 10px;">
         <a href="mailto:hello.usebrake@gmail.com?subject=Brake%20beta%20feedback" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 8px; background: var(--teal); color: #031a17; font-size: 14px; font-weight: 560; padding: 9px 16px; border-radius: var(--r-sm); box-shadow: var(--inner-top); transition: background var(--dur-fast) var(--ease-out);" style-hover="background: #7cf3df;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.03 12.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></svg>
           Feedback
@@ -54,30 +54,13 @@
 
     <!-- ---- INTRO ---- -->
     <div style="max-width: 680px;">
-      <div style="font-size: 11.5px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-3);">Getting started</div>
-      <h1 style="margin: 14px 0 0; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 680; color: var(--fg-1);">Install the free beta</h1>
-      <p style="margin: 18px 0 0; font-size: 17px; line-height: 1.65; color: var(--fg-2);">Download the Windows installer, run it, and open Brake from the Start Menu. No account, no sign-in.</p>
+      <h1 style="margin: 0; font-size: clamp(30px, 4.4vw, 46px); line-height: 1.08; letter-spacing: -0.02em; font-weight: 680; color: var(--fg-1);">Install the free beta</h1>
     </div>
 
     <!-- ---- BETA NOTE ---- -->
     <div style="margin: 22px 0 0; max-width: 680px; display: inline-flex; align-items: flex-start; gap: 11px; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-md); padding: 13px 16px;">
       <span style="flex: none; margin-top: 1px; color: var(--gold);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="4" height="14" x="6" y="5" rx="1"></rect><rect width="4" height="14" x="14" y="5" rx="1"></rect></svg></span>
       <span style="font-size: 14px; line-height: 1.55; color: var(--fg-3);">Brake installs background services, so Windows will ask for administrator permission during setup.</span>
-    </div>
-
-    <!-- ---- YOU'LL NEED ---- -->
-    <div style="margin: 36px 0 0;">
-      <div style="font-size: 11.5px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-4); margin-bottom: 12px;">You'll need</div>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-pill); font-size: 13.5px; font-weight: 500; color: var(--fg-2);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--fg-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>
-          Windows 10 or 11
-        </div>
-        <div style="display: inline-flex; align-items: center; gap: 9px; padding: 9px 14px; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--r-pill); font-size: 13.5px; font-weight: 500; color: var(--fg-2);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--fg-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
-          BrakeSetup.exe
-        </div>
-      </div>
     </div>
 
     <!-- ============ STEPS ============ -->
@@ -93,14 +76,9 @@
           <div style="font-size: 11px; font-weight: 560; letter-spacing: 0.09em; text-transform: uppercase; color: var(--fg-4);">Step 1</div>
           <h2 style="margin: 7px 0 0; font-size: 21px; font-weight: 600; letter-spacing: -0.012em; color: var(--fg-1);">Download the installer</h2>
           <div style="margin: 18px 0 0; border: 1px solid var(--border-strong); border-radius: var(--r-md); overflow: hidden; background: var(--surface-sink); box-shadow: var(--sh-2), var(--inner-top);">
-            <div style="min-height: 260px; display: grid; place-items: center; padding: 30px; text-align: center; color: var(--fg-3);">
-              <div>
-                <div style="font-size: 13px; font-weight: 560; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold);">Screenshot placeholder</div>
-                <div style="margin-top: 8px; font-size: 15px; line-height: 1.6;">Add a screenshot of downloading <strong style="color: var(--fg-1);">BrakeSetup.exe</strong> from the GitHub release.</div>
-              </div>
-            </div>
+            <img src="screenshots/1-BrakeSetupexeFromGithubScreenshot.png" alt="BrakeSetup.exe asset on the latest GitHub release" style="width: 100%; height: auto; display: block;">
           </div>
-          <p style="margin: 18px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--fg-2);">Download BrakeSetup.exe from the latest GitHub release.</p>
+          <p style="margin: 18px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--fg-2);">Download BrakeSetup.exe from the latest GitHub release or click the yellow button below to download directly.</p>
           <div style="margin: 18px 0 0;">
             <a href="https://github.com/usebrake/Brake/releases/latest/download/BrakeSetup.exe" style="display: inline-flex; white-space: nowrap; align-items: center; gap: 9px; background: var(--gold); color: var(--on-accent); font-size: 14.5px; font-weight: 560; padding: 11px 18px; border-radius: var(--r-sm); box-shadow: var(--inner-top); transition: background var(--dur-fast) var(--ease-out);" style-hover="background: var(--gold-bright);">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"></path><path d="m6 11 6 6 6-6"></path><path d="M5 21h14"></path></svg>
@@ -127,7 +105,7 @@
               </div>
             </div>
           </div>
-          <p style="margin: 18px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--fg-2);">Double-click the installer and approve the Windows admin prompt. Brake installs its app files, shortcuts, and background services.</p>
+          <p style="margin: 18px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--fg-2);">Double-click the installer. Windows may warn that the file is from an unknown publisher because the beta is not code-signed yet. Choose to run it anyway, then approve the Windows admin prompt. Brake installs its app files, shortcuts, and background services.</p>
           <div style="margin: 18px 0 0;">
             <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-3);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Installs to C:\Program Files\Brake</span>
           </div>
